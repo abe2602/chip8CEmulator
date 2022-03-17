@@ -5,8 +5,13 @@
 int main(int argc, char **argv)
 {
     Chip8 chip8;
-    chip8MemorySet(&chip8.memory, 0x400, 'a');
-    printf("%c", getChip8MemoryValue(&chip8.memory, 0x400));
+    chip8.registers.stackPointer = 0;
+
+    chip8StackPush(&chip8, 0xff);
+    chip8StackPush(&chip8, 0xaa);
+
+    printf("%x\n", chip8StackPop(&chip8));
+    printf("%x\n", chip8StackPop(&chip8));
 
     SDL_Init(SDL_INIT_EVERYTHING);
 
