@@ -1,18 +1,15 @@
+#include <stdbool.h>
 #include "chip8_stack.h"
 #include "chip8.h"
 
-static int chip8IsStackInBounds(Chip8 *chip8)
+static bool chip8IsStackInBounds(Chip8 *chip8)
 {
-    if (chip8->registers.stackPointer < CHIP8_TOTAL_STACK_DEPTH)
-    {
-        return 0;
-    }
-    return 1;
+    return chip8->registers.stackPointer < CHIP8_TOTAL_STACK_DEPTH;
 }
 
 void chip8StackPush(Chip8 *chip8, unsigned short value)
 {
-    if (chip8IsStackInBounds(chip8) == 1)
+    if (!chip8IsStackInBounds(chip8))
     {
         return;
     }

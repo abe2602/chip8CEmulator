@@ -1,18 +1,14 @@
 #include "chip8_memory.h"
+#include <stdbool.h>
 
-static int isOutOfMemoryBounds(int index)
+static bool isOutOfMemoryBounds(int index)
 {
-    if (index >= 0 && index < CHIP8_MEMORY_SIZE)
-    {
-        return 0;
-    }
-
-    return 1;
+    return index >= 0 && index < CHIP8_MEMORY_SIZE;
 }
 
 void chip8MemorySet(Chip8Memory *memory, int index, unsigned char value)
 {
-    if (isOutOfMemoryBounds(index) == 0)
+    if (!isOutOfMemoryBounds(index))
     {
         memory->memory[index] = value;
     }
@@ -20,9 +16,10 @@ void chip8MemorySet(Chip8Memory *memory, int index, unsigned char value)
 
 unsigned char getChip8MemoryValue(Chip8Memory *memory, int index)
 {
-    if (isOutOfMemoryBounds(index) == 0)
+    if (!isOutOfMemoryBounds(index))
     {
         return memory->memory[index];
     }
+
     return '1';
 }
